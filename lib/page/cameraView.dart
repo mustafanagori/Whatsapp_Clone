@@ -38,7 +38,7 @@ class CameraView extends StatelessWidget {
               )),
         ],
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -61,25 +61,26 @@ class CameraView extends StatelessWidget {
                 child: TextFormField(
                   maxLines: 6,
                   minLines: 1,
-                  style: TextStyle(color: Colors.white, fontSize: 17),
+                  style: const TextStyle(color: Colors.white, fontSize: 17),
                   decoration: InputDecoration(
                       suffixIcon: CircleAvatar(
-                        child: Icon(
+                        radius: 25,
+                        backgroundColor: Colors.tealAccent[700],
+                        child: const Icon(
                           Icons.check,
                           color: Colors.white,
                           size: 27,
                         ),
-                        radius: 25,
-                        backgroundColor: Colors.tealAccent[700],
                       ),
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.add_photo_alternate,
                         color: Colors.white,
                         size: 27,
                       ),
                       border: InputBorder.none,
                       hintText: "Add caption..",
-                      hintStyle: TextStyle(color: Colors.white, fontSize: 17)),
+                      hintStyle:
+                          const TextStyle(color: Colors.white, fontSize: 17)),
                 ),
               ),
             ),
