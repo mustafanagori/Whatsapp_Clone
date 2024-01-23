@@ -44,24 +44,24 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               itemBuilder: (BuildContext context) {
                 return [
                   const PopupMenuItem(
-                    child: Text("New group"),
                     value: "New group",
+                    child: Text("New group"),
                   ),
                   const PopupMenuItem(
-                    child: Text("New broadcast"),
                     value: "New broadcast",
+                    child: Text("New broadcast"),
                   ),
                   const PopupMenuItem(
-                    child: Text("Whatsapp Web"),
                     value: "Whatsapp Web",
+                    child: Text("Whatsapp Web"),
                   ),
                   const PopupMenuItem(
-                    child: Text("Starred message"),
                     value: "Starred message",
+                    child: Text("Starred message"),
                   ),
                   const PopupMenuItem(
-                    child: Text("Setting"),
                     value: "Setting",
+                    child: Text("Setting"),
                   ),
                 ];
               }),

@@ -1,5 +1,12 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:whatsapp/page/cameraView.dart';
 
 late List<CameraDescription> cameras;
 
@@ -19,6 +26,12 @@ class _CameraPageState extends State<CameraPage> {
     super.initState();
     _cameraController = CameraController(cameras[0], ResolutionPreset.high);
     cameraValue = _cameraController.initialize();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _cameraController.dispose();
   }
 
   @override
@@ -60,7 +73,9 @@ class _CameraPageState extends State<CameraPage> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            takePhoto(context);
+                          },
                           child: Icon(
                             Icons.panorama_fish_eye,
                             color: Colors.white,
@@ -95,5 +110,20 @@ class _CameraPageState extends State<CameraPage> {
         ],
       ),
     );
+  }
+
+  void takePhoto(BuildContext context) async {
+    // Generate a unique path for the image using the current date and time
+    final path =
+        join((await getTemporaryDirectory()).path, "${DateTime.now()}.png");
+
+    // Capture the picture using the camera controller
+    final XFile picture = await _cameraController.takePicture();
+
+    // Save the picture to the specified path
+    await File(picture.path).copy(path);
+
+    // Navigate to the CameraView after taking the photo
+    Get.to(CameraView(path: path));
   }
 }

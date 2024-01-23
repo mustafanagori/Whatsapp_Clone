@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF075E54),
         useMaterial3: false,
         fontFamily: "OpenSans",
-        //accentColor: Color(0xFF128C7E), // Corrected property name
       ),
       home: const Home(),
     );

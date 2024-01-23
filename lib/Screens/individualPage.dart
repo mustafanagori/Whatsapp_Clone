@@ -2,6 +2,8 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+// ignore: library_prefixes
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:whatsapp/model/chat_model.dart';
 
 class IndividualPage extends StatefulWidget {
@@ -13,7 +15,13 @@ class IndividualPage extends StatefulWidget {
 }
 
 class _IndividualPageState extends State<IndividualPage> {
-  TextEditingController _controller = TextEditingController();
+  late IO.Socket socket;
+
+  void connect() {
+    socket = IO.io("uri");
+  }
+
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,18 +50,18 @@ class _IndividualPageState extends State<IndividualPage> {
                 radius: 20,
                 backgroundColor: Colors.grey,
                 child: SvgPicture.asset(
-                  widget.chatModel.isGroup
-                      ? "assets/group.svg"
-                      : "assets/person.svg",
                   color: Colors.white,
                   height: 45,
                   width: 45,
+                  widget.chatModel.isGroup
+                      ? "assets/group.svg"
+                      : "assets/person.svg",
                 ),
               ),
             ],
           ),
         ),
-        backgroundColor: Color(0xFF075E54),
+        backgroundColor: const Color(0xFF075E54),
         title: InkWell(
           onTap: () {},
           child: Column(
@@ -72,43 +80,42 @@ class _IndividualPageState extends State<IndividualPage> {
           ),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.videocam)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.call)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.videocam)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.call)),
           PopupMenuButton<String>(
               onSelected: (value) {},
               itemBuilder: (BuildContext context) {
                 return [
                   const PopupMenuItem(
-                    child: Text("View Contact"),
                     value: "View Contact",
+                    child: Text("View Contact"),
                   ),
                   const PopupMenuItem(
-                    child: Text("Media, Link, Docs"),
                     value: "Media, Link, Docs",
+                    child: Text("Media, Link, Docs"),
                   ),
                   const PopupMenuItem(
-                    child: Text("Whatsapp Web"),
                     value: "Whatsapp Web",
+                    child: Text("Whatsapp Web"),
                   ),
                   const PopupMenuItem(
-                    child: Text("Search"),
                     value: "Search",
+                    child: Text("Search"),
                   ),
                   const PopupMenuItem(
-                    child: Text("Mute Notification"),
                     value: "Mute Notification",
+                    child: Text("Mute Notification"),
                   ),
                   const PopupMenuItem(
-                    child: Text("Wallpaper"),
                     value: "Wallpaper",
+                    child: Text("Wallpaper"),
                   ),
                 ];
               }),
         ],
       ),
-
       // end of app bar
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Stack(
@@ -118,7 +125,7 @@ class _IndividualPageState extends State<IndividualPage> {
               alignment: Alignment.bottomCenter,
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width - 55,
                     child: Card(
                       margin:
@@ -166,7 +173,7 @@ class _IndividualPageState extends State<IndividualPage> {
                               ),
                             ),
                           ]),
-                          contentPadding: EdgeInsets.all(5),
+                          contentPadding: const EdgeInsets.all(5),
                         ),
                       ),
                     ),
@@ -175,7 +182,7 @@ class _IndividualPageState extends State<IndividualPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: CircleAvatar(
-                      backgroundColor: Color(0xFF075E54),
+                      backgroundColor: const Color(0xFF075E54),
                       child: IconButton(
                           onPressed: () {},
                           icon: const Icon(
@@ -194,7 +201,7 @@ class _IndividualPageState extends State<IndividualPage> {
   }
 
   Widget bottomsheet() {
-    return Container(
+    return SizedBox(
       height: 278,
       width: MediaQuery.of(context).size.width,
       child: Card(
@@ -258,6 +265,7 @@ class _IndividualPageState extends State<IndividualPage> {
 
   Widget emojiSelect() {
     return EmojiPicker(
+      // ignore: non_constant_identifier_names
       onEmojiSelected: (emoji, Category) {
         _controller.text = _controller.text + emoji.toString();
       },
